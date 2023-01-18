@@ -46,6 +46,7 @@ Please see the 'docs' directory.
 * Structured Computer Organization - Tanenbaum, 3rd edition.
 * Digital Design using VHDL - Dally, Harting, Aamodt.
 * Verilog by Example: A Concise Introduction For FPGA Design - Readler.
+* The Transputer Handbook - Graham, King.
 
 
 
