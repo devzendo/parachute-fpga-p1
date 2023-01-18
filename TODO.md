@@ -1,0 +1,3 @@
+# Current Development Activities
+
+Thinking... Reading...
