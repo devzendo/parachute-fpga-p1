@@ -12,16 +12,11 @@ Project started January 2023. Currently in its initial study phase.
 This is my first attempt at digital design; I've never built a CPU before, and I'm a beginner at VHDL/Verilog/FPGA.
 Expect many rookie errors and much confusion.
 
-This is part of the Parachute Project - I already have an emulator of a 32-bit, integer-only Transputer, and am working
-on a port of eForth for it. I have a comprehensive macro assembler for Transputer assembly language, and want to target
-some real hardware, rather than just the emulator. The only problem is that Transputers are no longer produced, and 
-hardware is hard to come by, and needs legacy systems to support it. I want a cheap Transputer system built from modern
-components. This is one way to get there.
+This is part of the Parachute Project - I already have an emulator of a 32-bit, integer-only Transputer, and am working on a port of eForth for it. I have a comprehensive macro assembler for Transputer assembly language, and want to target some real hardware, rather than just the emulator. The only problem is that Transputers are no longer produced, hardware is hard to come by, and needs legacy PC systems to support it. I want a cheap Transputer system built from modern components. This is one way to get there.
 
 
 ## Downloads
-There aren't any yet. There will be for the first release, but that won't be any
-time soon. When there is something worth demonstrating, I'll commit a bitstream release here.
+There aren't any yet. There will be for the first release, but that won't be any time soon. When there is something worth demonstrating, I'll commit a bitstream release here.
 
 # Development
 
@@ -29,11 +24,9 @@ time soon. When there is something worth demonstrating, I'll commit a bitstream 
 For information on current development activities, please see the [TODO file](TODO.md) file.
 
 ## Technology
-The hardware description language in use here is Verilog. I may switch to Spinal-HDL as I become more familiar with
-FPGA development, if this makes a significant improvement.
+The hardware description language in use here is Verilog. I may switch to Spinal-HDL as I become more familiar with FPGA development, if this makes a significant improvement.
 
-I'm using the free, licensed iCEcube2 / Diamond Programmer tools from Lattice. It should be possible to synthesise,
-route and build a bitstream using APIO/Yosys/IceStorm tools, but I haven't got these working yet.
+I'm using the free, licensed iCEcube2 / Diamond Programmer tools from Lattice. It should be possible to synthesise, route and build a bitstream using APIO/Yosys/IceStorm tools, but I haven't got these working yet.
 
 ## Source directory structure
 The source is split into the following directories:
