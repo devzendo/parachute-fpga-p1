@@ -10,3 +10,7 @@ For an overview of the project as a whole, see files in the _docs_ directory.
 
 Project starts with determining which instructions would be required to support eForth. There are only 30! See the _docs/INSTRUCTIONS.md_ file.
 
+## 23 Jan 2023
+
+Started enumerating the instructions, opcodes, and the specification of each from the compiler writer's guide.
+
