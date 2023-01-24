@@ -51,7 +51,7 @@ entimesl, fpmacc, fpxprod, ldhw, macc, pause, sthw, xprod
 
 
 
-# P1 Instructions Summary
+# Instructions Summary
 
 The byte sequences given here are from Appendix E from The Compiler Writer's Guide.
 
@@ -100,9 +100,11 @@ The byte sequences given here are from Appendix E from The Compiler Writer's Gui
 
 
 
-# P1 Instructions Specification
+# Instructions Specification
 
-The specification makes reference to definitions in Appendix F from The Compiler Writer's Guide. I'm using the definitions in that appendix for these instruction specifications. The intention of this section is to enumerate all the machine state and operations needed to support the macroarchitecture and the microarchitecture needed to fetch and execute it. This will be used to define the data and control path.
+The specification makes reference to definitions in Appendix F from The Compiler Writer's Guide. I'm using the definitions in that appendix for these instruction specifications. The intention of this section is to enumerate all the machine state and operations needed to support the macroarchitecture and the microarchitecture needed to fetch, decode and execute it. This will be used to define the data and control path.
+
+The pseudocode in this section will be used to define the microinstructions.
 
 ## Registers and Nomenclature
 
@@ -118,6 +120,10 @@ Iptr
 
 Wptr
 
+Tir - temporary instruction buildup register
+
+
+
 Oreg^o^ - the value of the operand register after decoding has taken place but before the selected instruction is executed.
 
 *X*reg' - the value of the *X* register after the instruction whereas *X*reg represent the value of *X*  before the instruction. 
@@ -126,7 +132,74 @@ Oreg^o^ - the value of the operand register after decoding has taken place but b
 
 
 
+## Initialise
+
+init:
+Oreg' = 0
+
+## Fetch, Decode and Execute
+
+### Fetch and Decode
+
+These two phases are not cleanly separated due to the Transputer's pfix/nfix/opr opcodes allowing common instructions to be encoded using a single byte, and less frequent instructions, or those with a large operand being encoded using multiple bytes.
+
+fetch:
+Tir' = ByteAtMem[Iptr]
+Iptr' = Iptr + 1
+Oreg' = Oreg | (Tir & 0x0F)
+Tir' = Tir >> 4
+switch Tir
+	case pfix:
+		Oreg' = Oreg << 4
+		goto fetch
+	case nfix:
+		Oreg' = ! (Oreg << 4)
+		goto fetch
+switch Tir
+	case opr:
+		goto operator
+	default:
+		goto direct
+Oreg' = 0
+goto fetch
+
+
+
+direct: // operates on Tir
+
+
+
+operator: // operates on Oreg
+
+
+
+
+
 ## j - #0x - jump
 
 (to be continued...)
 
+
+
+# Data and Control Path
+
+The design of the data path and control path is taken from "Structured Computer Organization", 3rd edition by Tanenbaum, with adaptations to accommodate the P1 macroarchitecture (its register file, ALU operations and use of 4-bit shifts for instruction fetch/decode).
+
+The bus nomenclature is taken from the diagram on page 74 of the Transputer Data Book, 3rd edition.
+
+The register file comprises Areg, Breg, Creg, Oreg, Iptr, Wptr, Tir.
+
+The register file has three buses, X, Y and Z. The X and Y buses are used to read from a register to the left (X) and right (Y) inputs to the ALU; the Z bus is used to write a value to one of the registers.
+
+The ALU provides a 32-bit typical ALU a la Tanenbaum; it is also joined to a shifter (1 bit, 4 bit, left or right).
+
+
+
+# Control Path
+
+# Microcode
+
+
+
+boot:
+0; 
